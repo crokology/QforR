@@ -57,13 +57,11 @@ results <- qmethod(qdata, nfactors = 3)
 
 Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
 ```r
-round(results$loa, digits = 2)
-
 results$flag
 
 loa.and.flags(results)
 ```
-Amnong one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. This significantly loading onto a factor is called "Flagging". Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
+Among one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. This significantly loading onto a factor is called "Flagging". Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
 
  * 1) qsorts which factor loading is higher than the threshold for pval >0.95, and 
  * 2) qsorts which square loading is higher than the sum of square loadings of the same q-sort in all other factors
@@ -97,7 +95,7 @@ summary(results)
 results
 ```
 
-
+Comparing z-scores
 ```r
 plot(results)
 ```
@@ -162,4 +160,3 @@ export.qm(results, file = "myreport-pqm.txt", style = "PQMethod")
 
 Watts, S., & Stenner, P. (2012). Doing Q methodological research: Theory, method & interpretation. Sage.\
 Zabala, A. (2014). qmethod: A package to explore human perspectives using Q methodology.
-

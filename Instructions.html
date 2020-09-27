@@ -215,12 +215,10 @@ The <em>qmethod</em> function below goes throw our data. Based on statistical cr
 <div id="extracting-factors" class="section level1">
 <h1>4 - Extracting factors</h1>
 <p>Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.</p>
-<pre class="r"><code>round(results$loa, digits = 2)
-
-results$flag
+<pre class="r"><code>results$flag
 
 loa.and.flags(results)</code></pre>
-<p>Amnong one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. This significantly loading onto a factor is called &quot;Flagging&quot;. Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:</p>
+<p>Among one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. This significantly loading onto a factor is called &quot;Flagging&quot;. Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:</p>
 <ul>
 <li><ol style="list-style-type: decimal">
 <li>qsorts which factor loading is higher than the threshold for pval &gt;0.95, and</li>
@@ -248,6 +246,7 @@ humphrey</code></pre>
 <h1>5 - Making sense of the extracted factors</h1>
 <pre class="r"><code>summary(results)
 results</code></pre>
+<p>Comparing z-scores</p>
 <pre class="r"><code>plot(results)</code></pre>
 <pre class="r"><code>scores &lt;- cbind(round(results$zsc, digits=2), results$zsc_n) 
 nfactors &lt;- ncol(results$zsc) 
