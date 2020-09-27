@@ -152,6 +152,7 @@ write.csv(results$loa, file = "loadings.csv")
 ```
 
 These files will incorporate all things we just did.
+
 ```r
 export.qm(results, file = "myreport.txt", style = "R")
 
