@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+It should be noted that everything we do here can also be done in the shiny app (web interface) of the *qmethod* package by Aiora Zabala [here](https://azabala.shinyapps.io/qmethod-gui/). All these guidelines are based on instructions laid by by Aiora Zabala [here](https://github.com/aiorazabala/qmethod/wiki/Cookbook).
 
 # 0 - R setup
 First of all, make sure you installed the *qmethod* package by Aiora Zabala. 
@@ -55,23 +56,29 @@ results <- qmethod(qdata, nfactors = 3)
 
 # 4 - Extracting factors
 
-Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
+Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors. 
+
 ```r
 results$flag
 
 loa.and.flags(results)
 ```
-Among one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. This significantly loading onto a factor is called "Flagging". Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
+
+Among one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. An important indicator for that are the so called **factor loadings**. Factor loadings are the scores indicating how much each Q sort loads on each factor. Moreover, a Q-sort, which signifiantly loads onto a factor is called *flagged*.
+
+Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
 
  * 1) qsorts which factor loading is higher than the threshold for pval >0.95, and 
  * 2) qsorts which square loading is higher than the sum of square loadings of the same q-sort in all other factors
+ 
+More precise, regarding 1) we calculate the significance level by $1.96 * \frac{1}{\sqrt{n}}$, where $n$ = number of statements. For what concerns the second test, the idea is to test if a Q-sort loads onto a single factor by a large enough margin that it can be considered to be a factor exemplar.
 
 ```r
 results$f_char$characteristics
 ```
 Other criteria can be found in the table above. Based on Watts and Stenner (2012), the following criteria play a role in determining the number of factors extracted from the analysis:
 
-  * minimum number of Q-sorts $\geq$ 2
+  * minimum number of Q-sorts $\geq$ 2 *(what we did above)*
   * Eigenvalue $\geq$ 1
   * share of accumulated explained variance of extracted factors $\geq$ 30%
   * Humphreys rule
@@ -89,17 +96,32 @@ The last criteria is a graphical description of variance explained by additional
 screeplot(prcomp(qstake), main = "Screeplot of unrotated factors", type = "l")
 ```
 # 5 - Making sense of the extracted factors
+At this stage we know how many factors we extract from the data. Now, the task is to build a narrative and fill them with meaning.\
+The following line of code will provide us with a whole bunch of information, such as:
+
+  * size of data set
+  * number of extracted factors
+  * factor loadings
+  * flagged Q-sorts
+  * statement z-scores
+  * factor characteristics
+  * factor correlations
+  * distinguishing and consensus statements
+
 
 ```r
 summary(results)
 results
 ```
+So far, we looked at most of these bits of information. Now, for interpretation of the respective factors we will turn to the distinguishing and consensus statements. In short, consensus statements are elements of general agreement, whereas distinguishing statements indicate potential areas of contention.
 
-Comparing z-scores
+Now, how do we know if a statement is distinguished or represents consensus? Simple, by comparing z-scores. Whether or not a statement is significantly distinguished by a factor depends on the standard error of the difference of the respective z-score of that statement. This measure indicates if two factors evaluated a certain statement differently, by looking at the dispersion of the z-scores for each factor.
 ```r
 plot(results)
 ```
+Here we see a graphical representation of the z-scores for each factor. At the bottom we see consensus statements and at the top statements with the highest dispersion of z-scores. If an icon is filled with a color, we know that the factor is significantly distinguished for that respective statement.
 
+Another useful feature to interprete the different factors is to build **idealised Q-sorts**. This idealised Q-sort represents a so to say average of a Q-sort of a factor.
 
 ```r
 scores <- cbind(round(results$zsc, digits=2), results$zsc_n) 
@@ -109,19 +131,28 @@ scores <- scores[col.order]
 scores
 ```
 
+Reordering might help to see which statments have been most polarising for each factor
+
 ```r
 scores[order(scores$zsc_f1, decreasing = T), ]
 
 scores[order(scores$zsc_f2, decreasing = T), ] 
 scores[order(scores$zsc_f3, decreasing = T), ]
-scores[order(scores$zsc_f4, decreasing = T), ] 
-scores[order(scores$zsc_f5, decreasing = T), ]
 ```
 
+Apart from the graphical representation, we can also directly assess the differences of the z-scores for each particular statement. The next line of code tells you whether a statement:
 
+  * is consensus
+  * distinguishes all
+  * or distinguishes a particular factor only
+  
+In addition, the differences will be shown.
 ```r
 results$qdc
+```
+To make things a little easier, we can order the statements based on their categorisation.
 
+```r
 results$qdc[which(results$qdc$dist.and.cons == "Consensus"), ]
 
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes all"), ]
@@ -131,27 +162,21 @@ results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f1 only"), ]
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f2 only"), ]
 
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f3 only"), ]
-
-results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f4 only"), ]
-
-results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f5 only"), ]
 ```
 
 # 6 - Saving results
 ```r
 save(results, file = "practiseresults.Rdata")
 
-# Table of z-scores: 
 write.csv(results$zsc, file = "zscores.csv") 
 
-# Table of factor scores: 
 write.csv(results$zsc_n, file = "factorscores.csv") 
 
-# Table of Q-sort factor loadings: 
 write.csv(results$loa, file = "loadings.csv")
 ```
 
 These files will incorporate all things we just did.
+
 ```r
 export.qm(results, file = "myreport.txt", style = "R")
 
@@ -159,5 +184,6 @@ export.qm(results, file = "myreport-pqm.txt", style = "PQMethod")
 ```
 # References
 
-Watts, S., & Stenner, P. (2012). Doing Q methodological research: Theory, method & interpretation. Sage.\
+Watts, S., & Stenner, P. (2012). Doing Q methodological research: Theory, method & interpretation. Sage.
+
 Zabala, A. (2014). qmethod: A package to explore human perspectives using Q methodology.
