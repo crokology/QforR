@@ -1,0 +1,121 @@
+---
+title: "Code explanations"
+author: "Christoph Schulze"
+date: "27 September 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+
+
+
+
+install.packages("qmethod")
+library(qmethod)
+
+setwd("~/ich/Research/Q/analysis")
+
+#before importing data, delete in excel first column and save as csv file
+qstake <- read.csv("qstake.csv", header=TRUE, sep=";",dec=".")
+
+#for some reason line 43 are pure na's. next command will delete na's of the dataframe qdata
+qstake <-na.omit(qstake)
+
+save(qstake,file = "qdata.RData")
+
+cor(qstake)
+
+results <- qmethod(qstake, nfactors = 3)
+
+round(results$loa, digits = 2)
+
+results$flag
+
+loa.and.flags(results)
+
+#provides criteria for choice of number of factors to include
+results$f_char$characteristics
+
+#first number gives you critical threshold of humphreys rule
+#select to highest factor loadings and multiply these 
+#compare product to humphreys critical value
+humphrey<-2/sqrt(dim(qstake))
+humphrey
+
+screeplot(prcomp(qstake), main = "Screeplot of unrotated factors", type = "l")
+
+summary(results)
+results
+plot(results)
+
+scores <- cbind(round(results$zsc, digits=2), results$zsc_n) 
+nfactors <- ncol(results$zsc) 
+col.order <- as.vector(rbind(1:nfactors, (1:nfactors)+nfactors)) 
+scores <- scores[col.order] 
+scores
+
+scores[order(scores$zsc_f1, decreasing = T), ]
+
+scores[order(scores$zsc_f2, decreasing = T), ] 
+scores[order(scores$zsc_f3, decreasing = T), ]
+scores[order(scores$zsc_f4, decreasing = T), ] 
+scores[order(scores$zsc_f5, decreasing = T), ]
+
+results$qdc
+
+results$qdc[which(results$qdc$dist.and.cons == "Consensus"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes all"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f1 only"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f2 only"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f3 only"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f4 only"), ]
+
+results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f5 only"), ]
+
+
+save(results, file = "practiseresults.Rdata")
+
+# Table of z-scores: 
+write.csv(results$zsc, file = "zscores.csv") 
+
+# Table of factor scores: 
+write.csv(results$zsc_n, file = "factorscores.csv") 
+
+# Table of Q-sort factor loadings: 
+write.csv(results$loa, file = "loadings.csv")
+
+export.qm(results, file = "myreport.txt", style = "R")
+
+export.qm(results, file = "myreport-pqm.txt", style = "PQMethod")
+
