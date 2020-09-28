@@ -180,7 +180,7 @@ write.csv(results$zsc_n, file = "factorscores.csv")
 write.csv(results$loa, file = "loadings.csv")
 ```
 
-These files will incorporate all things we just did.
+These files will incorporate all things we just did. This is pretty useful in case you want to look at your results, but do not want to run R again to do so.
 
 ```r
 export.qm(results, file = "myreport.txt", style = "R")

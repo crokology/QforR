@@ -306,7 +306,7 @@ write.csv(results$zsc, file = &quot;zscores.csv&quot;)
 write.csv(results$zsc_n, file = &quot;factorscores.csv&quot;) 
 
 write.csv(results$loa, file = &quot;loadings.csv&quot;)</code></pre>
-<p>These files will incorporate all things we just did.</p>
+<p>These files will incorporate all things we just did. This is pretty useful in case you want to look at your results, but do not want to run R again to do so.</p>
 <pre class="r"><code>export.qm(results, file = &quot;myreport.txt&quot;, style = &quot;R&quot;)
 
 export.qm(results, file = &quot;myreport-pqm.txt&quot;, style = &quot;PQMethod&quot;)</code></pre>
