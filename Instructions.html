@@ -185,7 +185,8 @@ summary {
 </div>
 
 
-<p>It should be noted that everything we do here can also be done in the shiny app (web interface) of the <em>qmethod</em> package by Aiora Zabala <a href="https://azabala.shinyapps.io/qmethod-gui/">here</a>. All these guidelines are based on instructions laid by by Aiora Zabala <a href="https://github.com/aiorazabala/qmethod/wiki/Cookbook">here</a>.</p>
+<p>It should be noted that everything we do here can also be done in the shiny app (web interface) of the <em>qmethod</em> package by Aiora Zabala <a href="https://azabala.shinyapps.io/qmethod-gui/">here</a>. All these guidelines and code are based on instructions laid out by Aiora Zabala <a href="https://github.com/aiorazabala/qmethod/wiki/Cookbook">here</a>.</p>
+<p>My contribution here is simply to say one or two words what's happening in between the lines in a bit more detail.</p>
 <div id="r-setup" class="section level1">
 <h1>0 - R setup</h1>
 <p>First of all, make sure you installed the <em>qmethod</em> package by Aiora Zabala.</p>
@@ -274,7 +275,6 @@ scores &lt;- scores[col.order]
 scores</code></pre>
 <p>Reordering might help to see which statments have been most polarising for each factor</p>
 <pre class="r"><code>scores[order(scores$zsc_f1, decreasing = T), ]
-
 scores[order(scores$zsc_f2, decreasing = T), ] 
 scores[order(scores$zsc_f3, decreasing = T), ]</code></pre>
 <p>Apart from the graphical representation, we can also directly assess the differences of the z-scores for each particular statement. The next line of code tells you whether a statement:</p>
@@ -286,6 +286,7 @@ scores[order(scores$zsc_f3, decreasing = T), ]</code></pre>
 <p>In addition, the differences will be shown.</p>
 <pre class="r"><code>results$qdc</code></pre>
 <p>To make things a little easier, we can order the statements based on their categorisation.</p>
+<p>Clearly, these categorisations are key for building the respective narratives. Personally, I have a separate excel spreadsheet in which I mark these features. In the end, it is the idealised Q-sorts in combination with the features below that really help to draw a picture of the different narratives.</p>
 <pre class="r"><code>results$qdc[which(results$qdc$dist.and.cons == &quot;Consensus&quot;), ]
 
 results$qdc[which(results$qdc$dist.and.cons == &quot;Distinguishes all&quot;), ]
