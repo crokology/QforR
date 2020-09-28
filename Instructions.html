@@ -206,16 +206,16 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 </div>
 <div id="very-basic-analysis" class="section level1">
 <h1>2 - Very basic analysis</h1>
-<p>Just to get a first idea of your data, having a quick look at the correlations</p>
+<p>Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.</p>
 <pre class="r"><code>cor(qdata)</code></pre>
 </div>
 <div id="q-analysis" class="section level1">
 <h1>3 - Q analysis</h1>
 <p>At this stage we will tell R: &quot;Have a look at he data and check for 3 Factors&quot;. This is very crucial here. From now on we will use the features of the <em>qmethod</em> package.<br />
-The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on we will have to decide if we are ok with the number of factors, or if we have to decrease the number further.</p>
+The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
 <pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3)</code></pre>
 <pre><code>## Q-method analysis.
-## Finished on:             Mon Sep 28 15:42:57 2020
+## Finished on:             Tue Sep 29 19:29:39 2020
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
@@ -226,6 +226,7 @@ The <em>qmethod</em> function below goes throw our data. Based on statistical cr
 <div id="extracting-factors" class="section level1">
 <h1>4 - Extracting factors</h1>
 <p>Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.</p>
+<p>First we check which participants load onto which factor.</p>
 <pre class="r"><code>results$flag</code></pre>
 <pre><code>##        flag_f1 flag_f2 flag_f3
 ## Resp1    FALSE    TRUE   FALSE
@@ -284,7 +285,7 @@ The <em>qmethod</em> function below goes throw our data. Based on statistical cr
 <li>Humphreys rule</li>
 <li>Screeplot</li>
 </ul>
-<p>The Kaiser Guttman criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.</p>
+<p>The <strong>Kaiser Guttman</strong> criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.</p>
 <p>Humphreys rule basically states that the cross product of the two highest factor loadings must exceed <span class="math inline">\(\frac{-2}{\sqrt{n}}\)</span></p>
 <pre class="r"><code>humphrey&lt;-2/sqrt(dim(qdata))
 humphrey</code></pre>

@@ -42,7 +42,7 @@ save(qdata,file = "qdata.RData")
 
 # 2 - Very basic analysis
 
-Just to get a first idea of your data, having a quick look at the correlations
+Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.
 
 ```r
 cor(qdata)
@@ -51,7 +51,7 @@ cor(qdata)
 # 3 - Q analysis
 
 At this stage we will tell R: "Have a look at he data and check for 3 Factors". This is very crucial here. From now on we will use the features of the *qmethod* package.\
-The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on we will have to decide if we are ok with the number of factors, or if we have to decrease the number further.
+The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
 
 ```{r}
 results <- qmethod(qdata, nfactors = 3)
@@ -59,7 +59,9 @@ results <- qmethod(qdata, nfactors = 3)
 
 # 4 - Extracting factors
 
-Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors. 
+Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
+
+First we check which participants load onto which factor.
 
 ```{r}
 results$flag
@@ -87,7 +89,7 @@ Other criteria can be found in the table above. Based on Watts and Stenner (2012
   * Humphreys rule
   * Screeplot
 
-The Kaiser Guttman criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.
+The **Kaiser Guttman** criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.
 
 Humphreys rule basically states that the cross product of the two highest factor loadings must exceed $\frac{-2}{\sqrt{n}}$
 ```{r}
