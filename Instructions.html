@@ -234,12 +234,13 @@ loa.and.flags(results)</code></pre>
 <p>Other criteria can be found in the table above. Based on Watts and Stenner (2012), the following criteria play a role in determining the number of factors extracted from the analysis:</p>
 <ul>
 <li>minimum number of Q-sorts <span class="math inline">\(\geq\)</span> 2 <em>(what we did above)</em></li>
-<li>Eigenvalue <span class="math inline">\(\geq\)</span> 1</li>
-<li>share of accumulated explained variance of extracted factors <span class="math inline">\(\geq\)</span> 30%</li>
+<li>Eigenvalue <span class="math inline">\(\geq\)</span> 1 (Kaiser Guttman criterion)</li>
+<li>share of accumulated explained variance of extracted factors <span class="math inline">\(\geq\)</span> 35%</li>
 <li>Humphreys rule</li>
 <li>Screeplot</li>
 </ul>
-<p>Humphreys rule basically states that the product of the two highest factor loadings must exceed <span class="math inline">\(\frac{-2}{\sqrt{n}}\)</span></p>
+<p>The Kaiser Guttman criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.</p>
+<p>Humphreys rule basically states that the cross product of the two highest factor loadings must exceed <span class="math inline">\(\frac{-2}{\sqrt{n}}\)</span></p>
 <pre class="r"><code>humphrey&lt;-2/sqrt(dim(qstake))
 humphrey</code></pre>
 <p>The last criteria is a graphical description of variance explained by additional factors. Here, a kink in the line should indicate a cut-off point of additional factors.</p>

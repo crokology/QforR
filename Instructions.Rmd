@@ -79,12 +79,14 @@ results$f_char$characteristics
 Other criteria can be found in the table above. Based on Watts and Stenner (2012), the following criteria play a role in determining the number of factors extracted from the analysis:
 
   * minimum number of Q-sorts $\geq$ 2 *(what we did above)*
-  * Eigenvalue $\geq$ 1
-  * share of accumulated explained variance of extracted factors $\geq$ 30%
+  * Eigenvalue $\geq$ 1 (Kaiser Guttman criterion)
+  * share of accumulated explained variance of extracted factors $\geq$ 35%
   * Humphreys rule
   * Screeplot
 
-Humphreys rule basically states that the product of the two highest factor loadings must exceed $\frac{-2}{\sqrt{n}}$
+The Kaiser Guttman criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.
+
+Humphreys rule basically states that the cross product of the two highest factor loadings must exceed $\frac{-2}{\sqrt{n}}$
 ```r
 humphrey<-2/sqrt(dim(qstake))
 humphrey
