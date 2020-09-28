@@ -20,7 +20,7 @@ install.packages("qmethod")
 
 In the beginning of your document, make sure to **call** the library.
 
-```r
+```{r}
 library(qmethod)
 ```
 Next up, set the according working directory
@@ -31,9 +31,10 @@ setwd("your_directory")
 
 # 1 - Loading data into R
 
-So, an important note before importing the data (in that case here called **q_data.csv**), delete in excel first column and save as csv file. Optionally, you can save the data then in a separate file.
+So, an important note before importing the data (in that case here called *q_data.csv*), delete in excel first column and save as csv file. Optionally, you can save the data then in a separate file.
 
-```r
+Here I will illustrate the different analytical steps with an expample data set, which I priorly saved in *q_data.csv*.
+```{r}
 qdata <- read.csv("q_data.csv", header=TRUE, sep=";",dec=".")
 
 save(qdata,file = "qdata.RData")
@@ -52,7 +53,7 @@ cor(qdata)
 At this stage we will tell R: "Have a look at he data and check for 3 Factors". This is very crucial here. From now on we will use the features of the *qmethod* package.\
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on we will have to decide if we are ok with the number of factors, or if we have to decrease the number further.
 
-```r
+```{r}
 results <- qmethod(qdata, nfactors = 3)
 ```
 
@@ -60,7 +61,7 @@ results <- qmethod(qdata, nfactors = 3)
 
 Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors. 
 
-```r
+```{r}
 results$flag
 
 loa.and.flags(results)
@@ -75,7 +76,7 @@ Each Q-sort can only load onto one factor. However, it might occur that one Q-so
  
 More precise, regarding 1) we calculate the significance level by $1.96 * \frac{1}{\sqrt{n}}$, where $n$ = number of statements. For what concerns the second test, the idea is to test if a Q-sort loads onto a single factor by a large enough margin that it can be considered to be a factor exemplar.
 
-```r
+```{r}
 results$f_char$characteristics
 ```
 Other criteria can be found in the table above. Based on Watts and Stenner (2012), the following criteria play a role in determining the number of factors extracted from the analysis:
@@ -89,16 +90,17 @@ Other criteria can be found in the table above. Based on Watts and Stenner (2012
 The Kaiser Guttman criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.
 
 Humphreys rule basically states that the cross product of the two highest factor loadings must exceed $\frac{-2}{\sqrt{n}}$
-```r
-humphrey<-2/sqrt(dim(qstake))
+```{r}
+humphrey<-2/sqrt(dim(qdata))
 humphrey
 ```
 
 The last criteria is a graphical description of variance explained by additional factors. Here, a kink in the line should indicate a cut-off point of additional factors.
 
-```r
-screeplot(prcomp(qstake), main = "Screeplot of unrotated factors", type = "l")
+```{r}
+screeplot(prcomp(qdata), main = "Screeplot of unrotated factors", type = "l")
 ```
+
 # 5 - Making sense of the extracted factors
 At this stage we know how many factors we extract from the data. Now, the task is to build a narrative and fill them with meaning.\
 The following line of code will provide us with a whole bunch of information, such as:
@@ -120,14 +122,15 @@ results
 So far, we looked at most of these bits of information. Now, for interpretation of the respective factors we will turn to the distinguishing and consensus statements. In short, consensus statements are elements of general agreement, whereas distinguishing statements indicate potential areas of contention.
 
 Now, how do we know if a statement is distinguished or represents consensus? Simple, by comparing z-scores. Whether or not a statement is significantly distinguished by a factor depends on the standard error of the difference of the respective z-score of that statement. This measure indicates if two factors evaluated a certain statement differently, by looking at the dispersion of the z-scores for each factor.
-```r
+```{r}
 plot(results)
 ```
+
 Here we see a graphical representation of the z-scores for each factor. At the bottom we see consensus statements and at the top statements with the highest dispersion of z-scores. If an icon is filled with a color, we know that the factor is significantly distinguished for that respective statement.
 
 Another useful feature to interprete the different factors is to build **idealised Q-sorts**. This idealised Q-sort represents a so to say average of a Q-sort of a factor.
 
-```r
+```{r}
 scores <- cbind(round(results$zsc, digits=2), results$zsc_n) 
 nfactors <- ncol(results$zsc) 
 col.order <- as.vector(rbind(1:nfactors, (1:nfactors)+nfactors)) 
@@ -137,7 +140,7 @@ scores
 
 Reordering might help to see which statments have been most polarising for each factor
 
-```r
+```{r}
 scores[order(scores$zsc_f1, decreasing = T), ]
 scores[order(scores$zsc_f2, decreasing = T), ] 
 scores[order(scores$zsc_f3, decreasing = T), ]
@@ -150,14 +153,14 @@ Apart from the graphical representation, we can also directly assess the differe
   * or distinguishes a particular factor only
   
 In addition, the differences will be shown.
-```r
+```{r}
 results$qdc
 ```
 To make things a little easier, we can order the statements based on their categorisation.
 
 Clearly, these categorisations are key for building the respective narratives. Personally, I have a separate excel spreadsheet in which I mark these features. In the end, it is the idealised Q-sorts in combination with the features below that really help to draw a picture of the different narratives.
 
-```r
+```{r}
 results$qdc[which(results$qdc$dist.and.cons == "Consensus"), ]
 
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes all"), ]
