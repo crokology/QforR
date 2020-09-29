@@ -57,6 +57,21 @@ The *qmethod* function below goes throw our data. Based on statistical criteria 
 results <- qmethod(qdata, nfactors = 3)
 ```
 
+<span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation. </span>
+
+The rotation method can best be understood or lets say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now *rotation* might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets remember briefly, our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up which our desired subjective viewpoints. 
+
+In the case of the varimax rotation, we tell the programme to rotate the dataset in a way that each factor explain as much variance as possible. In other words, the rotation goes into the direction in which the data is most dispersed. Consequently, we see that the first factor explains most, followed by the second, followed by the third... 
+
+Varimax is thereby set as default. There are many other popular rotation modes, which are each based on different rotation criteria. Each mode has its own rationale. If you think that variance is not a good criterion for your data rotation, you might wanna have a look at different rotation methods, such as:
+
+  * quatimax
+  * promax
+  * oblimin
+  * simplimax
+  
+or do the roation by hand.
+
 # 4 - Extracting factors
 
 Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
@@ -69,14 +84,16 @@ results$flag
 loa.and.flags(results)
 ```
 
-Among one of these criteria is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. An important indicator for that are the so called **factor loadings**. Factor loadings are the scores indicating how much each Q sort loads on each factor. Moreover, a Q-sort, which signifiantly loads onto a factor is called *flagged*.
+Among one of these criteria mentioned by Watts and Stenner (2012) is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. An important indicator for that are the so called **factor loadings**. Factor loadings are the scores indicating how much each Q sort loads on each factor. Moreover, a Q-sort, which signifiantly loads onto a factor is called *flagged*.
+
+<span style="color: #0099cc;">Again, in our example the stars indicate which sort is flagged for which factor and the numbers are the respective factor loadings. As we can see, for the first factor we have six flagged Q-sorts, for the second factor five flagged Q-sorts and for the third factor we have three flagged Q-sorts. We are good to go.</span>
 
 Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
 
  * 1) qsorts which factor loading is higher than the threshold for pval >0.95, and 
  * 2) qsorts which square loading is higher than the sum of square loadings of the same q-sort in all other factors
  
-More precise, regarding 1) we calculate the significance level by $1.96 * \frac{1}{\sqrt{n}}$, where $n$ = number of statements. For what concerns the second test, the idea is to test if a Q-sort loads onto a single factor by a large enough margin that it can be considered to be a factor exemplar.
+More precisely, regarding 1) we calculate the significance level by $1.96 * \frac{1}{\sqrt{n}}$, where $n$ = number of statements. For what concerns the second test, the idea is to test if a Q-sort loads onto a single factor by a large enough margin that it can be considered to be a factor exemplar.
 
 ```{r}
 results$f_char$characteristics
@@ -89,13 +106,18 @@ Other criteria can be found in the table above. Based on Watts and Stenner (2012
   * Humphreys rule
   * Screeplot
 
+<span style="color: #0099cc;">Lets go through them one by one. Eigenvalues are all bigger 1 and accumulated variance amounts to 63%. In short, so far all criteria are satisfied.</span>
+
 The **Kaiser Guttman** criterion ensures each extracted factor accounts for at least as much study variance than a single Q sort. If this was not the case, the factor in question captures less information than the data provided by a single participant.
 
 Humphreys rule basically states that the cross product of the two highest factor loadings must exceed $\frac{-2}{\sqrt{n}}$
+
 ```{r}
 humphrey<-2/sqrt(dim(qdata))
 humphrey
 ```
+
+<span style="color: #0099cc;">The first number of this command gives us the threshold of the *Humphrey rule*. If we calculate this for our third factor, we get 0,64. Since this is larger than the calculated threshold, we can say that also that criteria is satisfied.</span>
 
 The last criteria is a graphical description of variance explained by additional factors. Here, a kink in the line should indicate a cut-off point of additional factors.
 
