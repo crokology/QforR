@@ -12,7 +12,21 @@ It should be noted that everything we do here can also be done in the shiny app 
 
 My contribution here is simply to say one or two words what's happening in between the lines in a bit more detail.
 
-# 0 - R setup
+***
+### Contents
+  * [0. R setup](#r-setup)
+  * [1. Loading data](#loading-data-into-r)
+  * [2. Basic analysis](#very-basic-analysis)
+  * [3. Q analysis](#q-analysis)
+  * [4. Extracting factors](#extracting-factors)
+  * [5. Interpretation](#making-sense-of-the-extracted-factors)
+  * [6. Saving results](#saving-results)
+  * [References](#references)
+
+***
+
+
+### 0. R setup
 First of all, make sure you installed the *qmethod* package by Aiora Zabala. 
 ```r
 install.packages("qmethod")
@@ -29,7 +43,7 @@ Next up, set the according working directory
 setwd("your_directory")
 ```
 
-# 1 - Loading data into R
+### 1. Loading data into R
 
 So, an important note before importing the data (in that case here called *q_data.csv*), delete in excel first column and save as csv file. Optionally, you can save the data then in a separate file.
 
@@ -40,7 +54,7 @@ qdata <- read.csv("q_data.csv", header=TRUE, sep=";",dec=".")
 save(qdata,file = "qdata.RData")
 ```
 
-# 2 - Very basic analysis
+### 2. Very basic analysis
 
 Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.
 
@@ -48,7 +62,7 @@ Just to get a first idea of your data, having a quick look at the correlations. 
 cor(qdata)
 ```
 
-# 3 - Q analysis
+### 3. Q analysis
 
 At this stage we will tell R: "Have a look at he data and check for 3 Factors". This is very crucial here. From now on we will use the features of the *qmethod* package.\
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
@@ -72,7 +86,7 @@ Varimax is thereby set as default. There are many other popular rotation modes, 
   
 or do the roation by hand.
 
-# 4 - Extracting factors
+### 4. Extracting factors
 
 Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
 
@@ -127,7 +141,7 @@ screeplot(prcomp(qdata), main = "Screeplot of unrotated factors", type = "l")
 
 <span style="color: #0099cc;">Okay, this criterion leaves some room for interpretation, but what are we looking for? What we are trying to do is to extract a number of factors that is smaller than the number of participants in our study. At the same time, we try to explain as much variance as possible. A kink in the screeplot basically tells us: that factor is not explaining much viariance. What is a kink and what not is subject to individual interpretation though.</span>
 
-# 5 - Making sense of the extracted factors
+### 5. Making sense of the extracted factors
 At this stage we know how many factors we extract from the data. Now, the task is to build a narrative and fill them with meaning.\
 The following line of code will provide us with a whole bunch of information, such as:
 
@@ -205,7 +219,7 @@ results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f2 only"), ]
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f3 only"), ]
 ```
 
-# 6 - Saving results
+### 6. Saving results
 ```r
 save(results, file = "practiseresults.Rdata")
 
@@ -223,7 +237,7 @@ export.qm(results, file = "myreport.txt", style = "R")
 
 export.qm(results, file = "myreport-pqm.txt", style = "PQMethod")
 ```
-# References
+### References
 
 Watts, S., & Stenner, P. (2012). Doing Q methodological research: Theory, method & interpretation. Sage.
 
