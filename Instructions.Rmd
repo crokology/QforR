@@ -48,6 +48,8 @@ setwd("your_directory")
 So, an important note before importing the data (in that case here called *q_data.csv*), delete in excel first column and save as csv file. Optionally, you can save the data then in a separate file.
 
 Here I will illustrate the different analytical steps with an expample data set, which I priorly saved in *q_data.csv*.
+
+On this page I make some general remarks on what's happening in the code and also <span style="color: #0099cc;">introduce a few comments in blue which then refer to the output based on the sample data file.</span>
 ```{r}
 qdata <- read.csv("q_data.csv", header=TRUE, sep=";",dec=".")
 

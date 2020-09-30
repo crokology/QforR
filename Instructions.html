@@ -215,6 +215,7 @@ summary {
 <h3>1. Loading data into R</h3>
 <p>So, an important note before importing the data (in that case here called <em>q_data.csv</em>), delete in excel first column and save as csv file. Optionally, you can save the data then in a separate file.</p>
 <p>Here I will illustrate the different analytical steps with an expample data set, which I priorly saved in <em>q_data.csv</em>.</p>
+<p>On this page I make some general remarks on what's happening in the code and also <span style="color: #0099cc;">introduce a few comments in blue which then refer to the output based on the sample data file.</span></p>
 <pre class="r"><code>qdata &lt;- read.csv(&quot;q_data.csv&quot;, header=TRUE, sep=&quot;;&quot;,dec=&quot;.&quot;)
 
 save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
@@ -230,7 +231,7 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
 <pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3)</code></pre>
 <pre><code>## Q-method analysis.
-## Finished on:             Wed Sep 30 12:06:25 2020
+## Finished on:             Wed Sep 30 16:00:00 2020
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
