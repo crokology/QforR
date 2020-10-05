@@ -70,7 +70,7 @@ At this stage we will tell R: "Have a look at he data and check for 3 Factors". 
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
 
 ```{r}
-results <- qmethod(qdata, nfactors = 3)
+results <- qmethod(qdata, nfactors = 3, rotation = 'varimax')
 ```
 
 <span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation. </span>
