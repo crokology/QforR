@@ -70,10 +70,10 @@ At this stage we will tell R: "Have a look at he data and check for 3 Factors". 
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
 
 ```{r}
-results <- qmethod(qdata, nfactors = 3)
+results <- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method="pearson")
 ```
 
-<span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation. </span>
+<span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation and *pearson* correlation method.</span>
 
 The rotation method can best be understood or lets say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now *rotation* might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets remember briefly, our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up which our desired subjective viewpoints. 
 
@@ -219,6 +219,16 @@ results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f1 only"), ]
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f2 only"), ]
 
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f3 only"), ]
+```
+
+Another way of highlighting factor differences is to compute the pairwise z-score differences between two factors. This operation is already being done and the differences are storred in the background, we just need to call it with the right command. 
+
+```{r}
+results$qdc[order(results$qdc$f1_f2, decreasing = T), ]
+
+results$qdc[order(results$qdc$f1_f3, decreasing = T), ]
+
+results$qdc[order(results$qdc$f2_f3, decreasing = T), ]
 ```
 
 ### 6. Saving results
