@@ -241,7 +241,7 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
 <pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method=&quot;pearson&quot;)</code></pre>
 <pre><code>## Q-method analysis.
-## Finished on:             Thu Mar 11 18:51:33 2021
+## Finished on:             Thu Mar 11 19:01:44 2021
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
@@ -768,7 +768,8 @@ scores</code></pre>
 ## 8   1.63533548       ***
 ## 7   1.62511993       ***
 ## 22  0.43574745</code></pre>
-<p>Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing <em>f1_f2</em> to <em>f1_f3</em> we order the z-score differences of Factor 1 and 3 respectively.</p>
+<p><span style="color: #0099cc;">What we see here is that statements at the top and statements and the bottom appear to be significantly differently evaluated by the two factors. What happens is that R takes the largest z-scores of factor 1 and substracts the smallest z-scores of factor 2. Consequently, at some point the z-scores of factor 1 will be quite small and the z-scores of factor 2 large. Therefore there are negative differences at the bottom.</span></p>
+<p>Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing <strong>f1_f2</strong> to <strong>f1_f3</strong> we order the z-score differences of Factor 1 and 3 respectively.</p>
 </div>
 <div id="saving-results" class="section level3">
 <h3>6. Saving results</h3>
