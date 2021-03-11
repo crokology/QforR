@@ -70,11 +70,7 @@ At this stage we will tell R: "Have a look at he data and check for 3 Factors". 
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
 
 ```{r}
-<<<<<<< HEAD
 results <- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method="pearson")
-=======
-results <- qmethod(qdata, nfactors = 3, rotation = 'varimax')
->>>>>>> dc2d0a573390742ecd8a1104dbc6ad1655cfd057
 ```
 
 <span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation and *pearson* correlation method.</span>
@@ -234,6 +230,8 @@ results$qdc[order(results$qdc$f1_f3, decreasing = T), ]
 
 results$qdc[order(results$qdc$f2_f3, decreasing = T), ]
 ```
+
+Apart from the z-score differences, we also see whether or not these differences are significant or not.
 
 ### 6. Saving results
 ```r
