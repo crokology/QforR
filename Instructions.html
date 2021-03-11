@@ -239,9 +239,15 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 <h3>3. Q analysis</h3>
 <p>At this stage we will tell R: &quot;Have a look at he data and check for 3 Factors&quot;. This is very crucial here. From now on we will use the features of the <em>qmethod</em> package.<br />
 The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
+<<<<<<< HEAD
 <pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method=&quot;pearson&quot;)</code></pre>
 <pre><code>## Q-method analysis.
 ## Finished on:             Thu Mar 11 18:28:30 2021
+=======
+<pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax')</code></pre>
+<pre><code>## Q-method analysis.
+## Finished on:             Mon Oct 05 13:49:11 2020
+>>>>>>> dc2d0a573390742ecd8a1104dbc6ad1655cfd057
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
