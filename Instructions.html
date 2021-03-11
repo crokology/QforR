@@ -239,15 +239,9 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 <h3>3. Q analysis</h3>
 <p>At this stage we will tell R: &quot;Have a look at he data and check for 3 Factors&quot;. This is very crucial here. From now on we will use the features of the <em>qmethod</em> package.<br />
 The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
-<<<<<<< HEAD
 <pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method=&quot;pearson&quot;)</code></pre>
 <pre><code>## Q-method analysis.
-## Finished on:             Thu Mar 11 18:28:30 2021
-=======
-<pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax')</code></pre>
-<pre><code>## Q-method analysis.
-## Finished on:             Mon Oct 05 13:49:11 2020
->>>>>>> dc2d0a573390742ecd8a1104dbc6ad1655cfd057
+## Finished on:             Thu Mar 11 18:51:33 2021
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
@@ -694,7 +688,7 @@ scores</code></pre>
 ## 33         *
 ## 36        **
 ## 38        6*</code></pre>
-<p>Another way of highlighting factor differences is to compute the pairwise z-score differences between two factors. This operation is already being done and the differences are storred in the background, we just need to call it with the right command.</p>
+<p>Another way of highlighting factor differences is to compute the pairwise <strong>z-score differences</strong> between two factors. This operation is already being done and the differences are storred in the background, we just need to call it with the right command. Here we are interested in the differences between Factor 1 and Factor 2 and order the z-score differences respectively.</p>
 <pre class="r"><code>results$qdc[order(results$qdc$f1_f2, decreasing = T), ]</code></pre>
 <pre><code>##            dist.and.cons       f1_f2 sig_f1_f2       f1_f3 sig_f1_f3
 ## 32 Distinguishes f1 only  2.01415778        6*  1.80245705        6*
@@ -774,164 +768,7 @@ scores</code></pre>
 ## 8   1.63533548       ***
 ## 7   1.62511993       ***
 ## 22  0.43574745</code></pre>
-<pre class="r"><code>results$qdc[order(results$qdc$f1_f3, decreasing = T), ]</code></pre>
-<pre><code>##            dist.and.cons       f1_f2 sig_f1_f2       f1_f3 sig_f1_f3
-## 32 Distinguishes f1 only  2.01415778        6*  1.80245705        6*
-## 38 Distinguishes f3 only -0.18635903            1.75172485        6*
-## 12 Distinguishes f3 only  0.09636846            1.16377025       ***
-## 13 Distinguishes f3 only  0.08347787            1.12123719        **
-## 28 Distinguishes f3 only  0.19114359            1.07890141        **
-## 11 Distinguishes f3 only  0.27084992            1.05552923        **
-## 15 Distinguishes f1 only  1.00916201       ***  0.68633150         *
-## 1              Consensus  0.10784304            0.66164758          
-## 30                        0.69245329         *  0.59424046          
-## 31 Distinguishes f2 only -0.60926863         *  0.57979110          
-## 9              Consensus  0.21940411            0.51075578          
-## 3              Consensus  0.36083234            0.49991104          
-## 16                       -0.51976394            0.47955612          
-## 8  Distinguishes f2 only -1.17681947       ***  0.45851601          
-## 5                         0.67104080         *  0.43697031          
-## 29                       -0.43469470            0.42018874          
-## 21             Consensus  0.30333358            0.36716598          
-## 14 Distinguishes f2 only -0.93468218        **  0.34361645          
-## 7  Distinguishes f2 only -1.29614255       ***  0.32897738          
-## 26                        0.92613613        **  0.32257049          
-## 18 Distinguishes f2 only  1.08121728       ***  0.28592347          
-## 19 Distinguishes f2 only  1.91038521        6*  0.00472624          
-## 6              Consensus -0.10070172           -0.04987698          
-## 27             Consensus  0.23881027           -0.16124796          
-## 37 Distinguishes f2 only  1.27551606       *** -0.18891530          
-## 10                       -0.89864093        ** -0.24686194          
-## 25 Distinguishes f2 only  1.13258009       *** -0.35565033          
-## 35                        0.48539097           -0.42076764          
-## 24                        0.36190446           -0.45147699          
-## 33 Distinguishes f3 only  0.14390850           -0.71537551         *
-## 34 Distinguishes f1 only -1.04226626       *** -0.98642002        **
-## 2  Distinguishes f1 only -0.83081474        ** -1.10205533        **
-## 36 Distinguishes f3 only -0.38737822           -1.39342617       ***
-## 20 Distinguishes f3 only -0.13499389           -1.40372169       ***
-## 22 Distinguishes f1 only -1.99319528        6* -1.55744783       ***
-## 4  Distinguishes f1 only -1.14093538       *** -1.69268208        6*
-## 23     Distinguishes all -0.80168441        ** -2.10366416        6*
-## 17     Distinguishes all -1.08757443       *** -2.12491868        6*
-##          f2_f3 sig_f2_f3
-## 32 -0.21170073          
-## 38  1.93808388        6*
-## 12  1.06740179        **
-## 13  1.03775932        **
-## 28  0.88775782         *
-## 11  0.78467931         *
-## 15 -0.32283051          
-## 1   0.55380454          
-## 30 -0.09821283          
-## 31  1.18905973       ***
-## 9   0.29135167          
-## 3   0.13907870          
-## 16  0.99932006        **
-## 8   1.63533548       ***
-## 5  -0.23407050          
-## 29  0.85488344         *
-## 21  0.06383239          
-## 14  1.27829863       ***
-## 7   1.62511993       ***
-## 26 -0.60356563          
-## 18 -0.79529381         *
-## 19 -1.90565897        6*
-## 6   0.05082474          
-## 27 -0.40005822          
-## 37 -1.46443135       ***
-## 10  0.65177899          
-## 25 -1.48823042       ***
-## 35 -0.90615861         *
-## 24 -0.81338145         *
-## 33 -0.85928402         *
-## 34  0.05584624          
-## 2  -0.27124059          
-## 36 -1.00604796        **
-## 20 -1.26872780       ***
-## 22  0.43574745          
-## 4  -0.55174670          
-## 23 -1.30197975       ***
-## 17 -1.03734425        **</code></pre>
-<pre class="r"><code>results$qdc[order(results$qdc$f2_f3, decreasing = T), ]</code></pre>
-<pre><code>##            dist.and.cons       f1_f2 sig_f1_f2       f1_f3 sig_f1_f3
-## 38 Distinguishes f3 only -0.18635903            1.75172485        6*
-## 8  Distinguishes f2 only -1.17681947       ***  0.45851601          
-## 7  Distinguishes f2 only -1.29614255       ***  0.32897738          
-## 14 Distinguishes f2 only -0.93468218        **  0.34361645          
-## 31 Distinguishes f2 only -0.60926863         *  0.57979110          
-## 12 Distinguishes f3 only  0.09636846            1.16377025       ***
-## 13 Distinguishes f3 only  0.08347787            1.12123719        **
-## 16                       -0.51976394            0.47955612          
-## 28 Distinguishes f3 only  0.19114359            1.07890141        **
-## 29                       -0.43469470            0.42018874          
-## 11 Distinguishes f3 only  0.27084992            1.05552923        **
-## 10                       -0.89864093        ** -0.24686194          
-## 1              Consensus  0.10784304            0.66164758          
-## 22 Distinguishes f1 only -1.99319528        6* -1.55744783       ***
-## 9              Consensus  0.21940411            0.51075578          
-## 3              Consensus  0.36083234            0.49991104          
-## 21             Consensus  0.30333358            0.36716598          
-## 34 Distinguishes f1 only -1.04226626       *** -0.98642002        **
-## 6              Consensus -0.10070172           -0.04987698          
-## 30                        0.69245329         *  0.59424046          
-## 32 Distinguishes f1 only  2.01415778        6*  1.80245705        6*
-## 5                         0.67104080         *  0.43697031          
-## 2  Distinguishes f1 only -0.83081474        ** -1.10205533        **
-## 15 Distinguishes f1 only  1.00916201       ***  0.68633150         *
-## 27             Consensus  0.23881027           -0.16124796          
-## 4  Distinguishes f1 only -1.14093538       *** -1.69268208        6*
-## 26                        0.92613613        **  0.32257049          
-## 18 Distinguishes f2 only  1.08121728       ***  0.28592347          
-## 24                        0.36190446           -0.45147699          
-## 33 Distinguishes f3 only  0.14390850           -0.71537551         *
-## 35                        0.48539097           -0.42076764          
-## 36 Distinguishes f3 only -0.38737822           -1.39342617       ***
-## 17     Distinguishes all -1.08757443       *** -2.12491868        6*
-## 20 Distinguishes f3 only -0.13499389           -1.40372169       ***
-## 23     Distinguishes all -0.80168441        ** -2.10366416        6*
-## 37 Distinguishes f2 only  1.27551606       *** -0.18891530          
-## 25 Distinguishes f2 only  1.13258009       *** -0.35565033          
-## 19 Distinguishes f2 only  1.91038521        6*  0.00472624          
-##          f2_f3 sig_f2_f3
-## 38  1.93808388        6*
-## 8   1.63533548       ***
-## 7   1.62511993       ***
-## 14  1.27829863       ***
-## 31  1.18905973       ***
-## 12  1.06740179        **
-## 13  1.03775932        **
-## 16  0.99932006        **
-## 28  0.88775782         *
-## 29  0.85488344         *
-## 11  0.78467931         *
-## 10  0.65177899          
-## 1   0.55380454          
-## 22  0.43574745          
-## 9   0.29135167          
-## 3   0.13907870          
-## 21  0.06383239          
-## 34  0.05584624          
-## 6   0.05082474          
-## 30 -0.09821283          
-## 32 -0.21170073          
-## 5  -0.23407050          
-## 2  -0.27124059          
-## 15 -0.32283051          
-## 27 -0.40005822          
-## 4  -0.55174670          
-## 26 -0.60356563          
-## 18 -0.79529381         *
-## 24 -0.81338145         *
-## 33 -0.85928402         *
-## 35 -0.90615861         *
-## 36 -1.00604796        **
-## 17 -1.03734425        **
-## 20 -1.26872780       ***
-## 23 -1.30197975       ***
-## 37 -1.46443135       ***
-## 25 -1.48823042       ***
-## 19 -1.90565897        6*</code></pre>
+<p>Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing <em>f1_f2</em> to <em>f1_f3</em> we order the z-score differences of Factor 1 and 3 respectively.</p>
 </div>
 <div id="saving-results" class="section level3">
 <h3>6. Saving results</h3>

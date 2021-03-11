@@ -221,17 +221,13 @@ results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f2 only"), ]
 results$qdc[which(results$qdc$dist.and.cons == "Distinguishes f3 only"), ]
 ```
 
-Another way of highlighting factor differences is to compute the pairwise z-score differences between two factors. This operation is already being done and the differences are storred in the background, we just need to call it with the right command. 
+Another way of highlighting factor differences is to compute the pairwise **z-score differences** between two factors. This operation is already being done and the differences are storred in the background, we just need to call it with the right command. Here we are interested in the differences between Factor 1 and Factor 2 and order the z-score differences respectively.
 
 ```{r}
 results$qdc[order(results$qdc$f1_f2, decreasing = T), ]
-
-results$qdc[order(results$qdc$f1_f3, decreasing = T), ]
-
-results$qdc[order(results$qdc$f2_f3, decreasing = T), ]
 ```
 
-Apart from the z-score differences, we also see whether or not these differences are significant or not.
+Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing *f1_f2* to *f1_f3* we order the z-score differences of Factor 1 and 3 respectively.
 
 ### 6. Saving results
 ```r
