@@ -75,6 +75,8 @@ results <- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method="pearso
 
 <span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation and *pearson* correlation method.</span>
 
+*"In Q, correlation coefficients are employed to determine the extent to which statement patterns in two Q sorts are similar: it is assumed that two persons with approximately the same attitude on a subject will rank the items in roughly the same order"* (Brown, 1980 p. 267). Taking this as the starting point of our analysis, we first correlate the different Q-sorts with each other and then subsequently rotate the data to reduce the dimensionality and to find out, who can be grouped together.
+
 The rotation method can best be understood or lets say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now *rotation* might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets remember briefly, our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up which our desired subjective viewpoints. 
 
 In the case of the varimax rotation, we tell the programme to rotate the dataset in a way that each factor explain as much variance as possible. In other words, the rotation goes into the direction in which the data is most dispersed. Consequently, we see that the first factor explains most, followed by the second, followed by the third... 
@@ -86,7 +88,9 @@ Varimax is thereby set as default. There are many other popular rotation modes, 
   * oblimin
   * simplimax
   
-or do the roation by hand.
+or do the rotation by hand.
+
+For what concerns the correlation method, there are the options of **Pearson** and **Spearman** correlation. Pearson's correlation assesses linear relationships, whereas Spearman's correlation addresses monotonic relationships. These which might be linear or take other functional forms.
 
 ### 4. Extracting factors
 
@@ -165,7 +169,7 @@ So far, we looked at most of these bits of information. Now, for interpretation 
 
 Now, how do we know if a statement is distinguished or represents consensus? Simple, by comparing **z-scores**. Z-scores tell us, how a statement has been evaluated on average by study participants for each respective factor. Consequently, these scores have the same dimensions as the extremes of the applied Q-grid.
 
-Whether or not a statement is significantly distinguished by a factor depends on the standard error of the difference of the respective z-score of that statement. This measure indicates if two factors evaluated a certain statement differently, by looking at the dispersion of the z-scores for each factor.
+Whether or not a statement is significantly distinguished by a factor depends on the **standard error of the difference** of the respective z-score of that statement. This measure indicates if two factors evaluated a certain statement differently, by looking at the dispersion of the z-scores for each factor.
 ```{r}
 plot(results)
 ```
@@ -228,8 +232,7 @@ results$qdc[order(results$qdc$f1_f2, decreasing = T), ]
 ```
 <span style="color: #0099cc;">What we see here is that statements at the top and statements and the bottom appear to be significantly differently evaluated by the two factors. What happens is that R takes the largest z-scores of factor 1 and substracts the smallest z-scores of factor 2. Consequently, at some point the z-scores of factor 1 will be quite small and the z-scores of factor 2 large. Therefore there are negative differences at the bottom.</span>
 
-
-Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing **f1_f2** to **f1_f3** we order the z-score differences of Factor 1 and 3 respectively.
+Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing **f1_f2** to **f1_f3** we order the z-score differences of factors 1 and 3 respectively. This will make life a lot easier once we deal with many factors and try to highlight the differences among them.
 
 ### 6. Saving results
 ```r
@@ -250,6 +253,8 @@ export.qm(results, file = "myreport.txt", style = "R")
 export.qm(results, file = "myreport-pqm.txt", style = "PQMethod")
 ```
 ### References
+
+Brown, S. R. (1980). Political subjectivity: Applications of Q methodology in political science. Yale University Press.
 
 Watts, S., & Stenner, P. (2012). Doing Q methodological research: Theory, method & interpretation. Sage.
 
