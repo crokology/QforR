@@ -229,7 +229,7 @@ results$qdc[order(results$qdc$f1_f2, decreasing = T), ]
 <span style="color: #0099cc;">What we see here is that statements at the top and statements and the bottom appear to be significantly differently evaluated by the two factors. What happens is that R takes the largest z-scores of factor 1 and substracts the smallest z-scores of factor 2. Consequently, at some point the z-scores of factor 1 will be quite small and the z-scores of factor 2 large. Therefore there are negative differences at the bottom.</span>
 
 
-Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing **f1_f2** to **f1_f3** we order the z-score differences of Factor 1 and 3 respectively.
+Apart from the z-score differences, we also see whether or not these differences are significant or not. By changing **f1_f2** to **f1_f3** we order the z-score differences of factors 1 and 3 respectively. This will make life a lot easier once we deal with many factors and try to highlight the differences among them.
 
 ### 6. Saving results
 ```r
