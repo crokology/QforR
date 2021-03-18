@@ -60,6 +60,18 @@ save(qdata,file = "qdata.RData")
 
 Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.
 
+Intuitively speaking, this is what is happening in the background: we have many individual Q-sorts. Comparing the different Q-sorts, we quickly see that some are alike, some are different. Looking at the dataset we notice that that there is some variance. What we try to do in the first step is to see, which part of the variance is shared among different factors. This referred to as **communality**. 
+
+What we do with **Principal Component Analysis** is to explain the variance and covariance in terms of a simpler structure by looking for communality in the data.
+
+To facilitate interpretation of the resulting simplified structure, we apply factor rotation. This procedure aims to maximise individual factor loadings (metric representing factor associations, similar to correlations).
+
+In short, the statistical procedures are as follows:
+
+1. correlation
+2. extraction
+3. rotation
+
 ```r
 cor(qdata)
 ```
@@ -70,8 +82,10 @@ At this stage we will tell R: "Have a look at he data and check for 3 Factors". 
 The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
 
 ```{r}
-results <- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method="pearson")
+results <- qmethod(qdata, nfactors = 3, rotation = "varimax", cor.method="pearson")
 ```
+
+UPDATE: new versions of the *'qmethod'* package also take **'extraction'** as an argument. Options here are then 'PCA' and 'Centroid'.
 
 <span style="color: #0099cc;">In our example here, we extracted 3 factors via the *varimax* rotation and *pearson* correlation method.</span>
 

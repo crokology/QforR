@@ -233,21 +233,31 @@ save(qdata,file = &quot;qdata.RData&quot;)</code></pre>
 <div id="very-basic-analysis" class="section level3">
 <h3>2. Very basic analysis</h3>
 <p>Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.</p>
+<p>Intuitively speaking, this is what is happening in the background: we have many individual Q-sorts. Comparing the different Q-sorts, we quickly see that some are alike, some are different. Looking at the dataset we notice that that there is some variance. What we try to do in the first step is to see, which part of the variance is shared among different factors. This referred to as <strong>communality</strong>.</p>
+<p>What we do with <strong>Principal Component Analysis</strong> is to explain the variance and covariance in terms of a simpler structure by looking for communality in the data.</p>
+<p>To facilitate interpretation of the resulting simplified structure, we apply factor rotation. This procedure aims to maximise individual factor loadings (metric representing factor associations, similar to correlations).</p>
+<p>In short, the statistical procedures are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>correlation</li>
+<li>extraction</li>
+<li>rotation</li>
+</ol>
 <pre class="r"><code>cor(qdata)</code></pre>
 </div>
 <div id="q-analysis" class="section level3">
 <h3>3. Q analysis</h3>
 <p>At this stage we will tell R: &quot;Have a look at he data and check for 3 Factors&quot;. This is very crucial here. From now on we will use the features of the <em>qmethod</em> package.<br />
 The <em>qmethod</em> function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.</p>
-<pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = 'varimax', cor.method=&quot;pearson&quot;)</code></pre>
+<pre class="r"><code>results &lt;- qmethod(qdata, nfactors = 3, rotation = &quot;varimax&quot;, cor.method=&quot;pearson&quot;)</code></pre>
 <pre><code>## Q-method analysis.
-## Finished on:             Fri Mar 12 17:58:22 2021
+## Finished on:             Thu Mar 18 13:15:37 2021
 ## Original data:           38 statements, 15 Q-sorts
 ## Forced distribution:     TRUE
 ## Number of factors:       3
 ## Rotation:                varimax
 ## Flagging:                automatic
 ## Correlation coefficient: pearson</code></pre>
+<p>UPDATE: new versions of the <em>'qmethod'</em> package also take <strong>'extraction'</strong> as an argument. Options here are then 'PCA' and 'Centroid'.</p>
 <p><span style="color: #0099cc;">In our example here, we extracted 3 factors via the <em>varimax</em> rotation and <em>pearson</em> correlation method.</span></p>
 <p><em>&quot;In Q, correlation coefficients are employed to determine the extent to which statement patterns in two Q sorts are similar: it is assumed that two persons with approximately the same attitude on a subject will rank the items in roughly the same order&quot;</em> (Brown, 1980 p. 267). Taking this as the starting point of our analysis, we first correlate the different Q-sorts with each other and then subsequently rotate the data to reduce the dimensionality and to find out, who can be grouped together.</p>
 <p>The rotation method can best be understood or lets say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now <em>rotation</em> might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets remember briefly, our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up which our desired subjective viewpoints.</p>
