@@ -72,7 +72,7 @@ What we do with **Principal Component Analysis** is to explain the variance and 
 
 To facilitate interpretation of the resulting simplified structure, we apply factor rotation. This procedure aims to maximise individual factor loadings (metric representing factor associations, similar to correlations).
 
-In short, the statistical procedures are as follows:
+In short, the statistical procedures are as follows (conducted in that order):
 
 1. correlation
 2. extraction
@@ -86,6 +86,8 @@ The *qmethod* function below goes throw our data. Based on statistical criteria 
 ```{r}
 results <- qmethod(qdata, nfactors = 3, rotation = "varimax", cor.method="pearson")
 ```
+
+[NOTE: The default options for rotation is varimax, for correlation method is pearson and for extraction method is PCA.]
 
 UPDATE: new versions of the *'qmethod'* package also take **'extraction'** as an argument. Options here are then 'PCA' and 'Centroid'.
 
