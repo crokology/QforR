@@ -60,6 +60,12 @@ save(qdata,file = "qdata.RData")
 
 Just to get a first idea of your data, having a quick look at the correlations. This is by far not a necessary step, but oftentimes nice to see who is correlated with whom. This shall provide some idea about which Q-sorts are most and least similar and therefore tell us something about how the factors are likely to develop.
 
+```r
+cor(qdata)
+```
+
+#### 2.1. Some Intuition
+
 Intuitively speaking, this is what is happening in the background: we have many individual Q-sorts. Comparing the different Q-sorts, we quickly see that some are alike, some are different. Looking at the dataset we notice that that there is some variance. What we try to do in the first step is to see, which part of the variance is shared among different factors. This referred to as **communality**. 
 
 What we do with **Principal Component Analysis** is to explain the variance and covariance in terms of a simpler structure by looking for communality in the data.
@@ -71,10 +77,6 @@ In short, the statistical procedures are as follows:
 1. correlation
 2. extraction
 3. rotation
-
-```r
-cor(qdata)
-```
 
 ### 3. Q analysis
 
