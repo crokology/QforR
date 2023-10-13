@@ -66,9 +66,9 @@ cor(qdata)
 
 #### 2.1. Some Intuition
 
-Intuitively speaking, this is what is happening in the background: we have many individual Q-sorts. Comparing the different Q-sorts, we quickly see that some are alike, some are different. Looking at the dataset we notice that that there is some variance. What we try to do in the first step is to see, which part of the variance is shared among different factors. This referred to as **communality**. 
+Intuitively speaking, this is what is happening in the background: we have many individual Q-sorts. Comparing the different Q-sorts, we quickly see that some are alike, and some are different. Looking at the dataset we notice that that there is some variance. What we try to do in the first step is to see, which part of the variance is shared among different factors. This is referred to as **communality**. 
 
-What we do with **Principal Component Analysis** is to explain the variance and covariance in terms of a simpler structure by looking for communality in the data.
+What we do with **Principal Component Analysis** is to explain the variance and covariance in terms of a simpler structure by looking for commonality in the data.
 
 To facilitate interpretation of the resulting simplified structure, we apply factor rotation. This procedure aims to maximise individual factor loadings (metric representing factor associations, similar to correlations).
 
@@ -81,7 +81,12 @@ In short, the statistical procedures are as follows (conducted in that order):
 ### 3. Q analysis
 
 At this stage we will tell R: "Have a look at he data and check for 3 Factors". This is very crucial here. From now on we will use the features of the *qmethod* package.\
-The *qmethod* function below goes throw our data. Based on statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
+The *qmethod* function below goes throw our data. Based on the statistical criteria mentioned further on, we will have to decide if we are ok with the number of factors, or if we have to decrease the number further down to 2.
+
+The rationale thereby is the following by imagining the following situation: I don’t know if you have kids, but let’s suppose you do. You come home and go into your kids’ room. It’s a total mess with toys everywhere. Now you tell your kid: Clean up your room and sort your toys into 6 boxes. Not 4, not 5, not 7 – into 6 boxes. And you figure out a system to put them into the 6 boxes.”
+Now, time passes by and you check how your kid cleaned up the room. One box is full of action figures, one with crayons, one with stuffed animals, and the remaining three boxes are filled with each one book. Now this doesn’t really look efficient, fewer boxes, in particular one box for books, could have done the job as well. However, since you imposed that 6 boxes should be used, you can now evaluate whether the outcome is efficient or not.
+The process of factor analysis in Q-method is quite similar. We impose a restriction on the program by telling how many factors to extract. All information the program has is the different sorting patterns. What the program does now is to look for similarities within the sorting patterns and “putting them into the boxes” (the factors). In that case, it may also happen the program comes up with factors that don’t tell us much. Similar to the example above with the three boxes of books, it is up to us researchers to evaluate whether a factor makes sense or not. To do that, we have statistical criteria, such as Eigenvalues, the share of variance explained, or number of Q-sorts per factor. Moreover, we can evaluate after building the narratives whether a smaller number of factors extracted makes more sense.
+
 
 ```{r}
 results <- qmethod(qdata, nfactors = 3, rotation = "varimax", cor.method="pearson")
@@ -95,9 +100,9 @@ UPDATE: new versions of the *'qmethod'* package also take **'extraction'** as an
 
 *"In Q, correlation coefficients are employed to determine the extent to which statement patterns in two Q sorts are similar: it is assumed that two persons with approximately the same attitude on a subject will rank the items in roughly the same order"* (Brown, 1980 p. 267). Taking this as the starting point of our analysis, we first correlate the different Q-sorts with each other and then subsequently rotate the data to reduce the dimensionality and to find out, who can be grouped together.
 
-The rotation method can best be understood or lets say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now *rotation* might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets remember briefly, our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up which our desired subjective viewpoints. 
+The rotation method can best be understood or let's say compared to a search mechanism under which the programme tries to identify the number of factors in the dataset. Now *rotation* might sound a little fancy, but it's actually quite accurate of what is happening here in the background. Lets us remember briefly, that our aim is to reduce the dimensions of our dataset. Within Q-studies we interview many people to find a reduced number of subjective viewpoints. This should be intuitive. However, we can tell the program based on which criteria it should reduce our dataset to end up with our desired subjective viewpoints. 
 
-In the case of the varimax rotation, we tell the programme to rotate the dataset in a way that each factor explain as much variance as possible. In other words, the rotation goes into the direction in which the data is most dispersed. Consequently, we see that the first factor explains most, followed by the second, followed by the third... 
+In the case of the varimax rotation, we tell the programme to rotate the dataset in a way that each factor explains as much variance as possible. In other words, the rotation goes into the direction in which the data is most dispersed. Consequently, we see that the first factor explains most, followed by the second, followed by the third... 
 
 Varimax is thereby set as default. There are many other popular rotation modes, which are each based on different rotation criteria. Each mode has its own rationale. If you think that variance is not a good criterion for your data rotation, you might wanna have a look at different rotation methods, such as:
 
@@ -108,13 +113,13 @@ Varimax is thereby set as default. There are many other popular rotation modes, 
   
 or do the rotation by hand.
 
-For what concerns the correlation method, there are the options of **Pearson** and **Spearman** correlation. Pearson's correlation assesses linear relationships, whereas Spearman's correlation addresses monotonic relationships. These which might be linear or take other functional forms.
+For what concerns the correlation method, there are the options of **Pearson** and **Spearman** correlation. Pearson's correlation assesses linear relationships, whereas Spearman's correlation addresses monotonic relationships. These might be linear or take other functional forms.
 
 ### 4. Extracting factors
 
 Watts and Stenner (2012) provide a good overview of Q-methodology and the respective criteria that determine the number of extracted factors.
 
-First we check which participants load onto which factor.
+First, we check which participants load onto which factor.
 
 ```{r}
 results$flag
@@ -122,9 +127,9 @@ results$flag
 loa.and.flags(results)
 ```
 
-Among one of these criteria mentioned by Watts and Stenner (2012) is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. An important indicator for that are the so called **factor loadings**. Factor loadings are the scores indicating how much each Q sort loads on each factor. Moreover, a Q-sort, which signifiantly loads onto a factor is called *flagged*.
+Among one of these criteria mentioned by Watts and Stenner (2012) is the number of Q-sorts belonging to a factor. The commands above return the Q-sorts which significantly load onto a certain factor. An important indicator for that are the so called **factor loadings**. Factor loadings are the scores indicating how much each Q sort loads on each factor. Moreover, a Q-sort, which significantly loads onto a factor is called *flagged*.
 
-<span style="color: #0099cc;">Again, in our example the stars indicate which sort is flagged for which factor and the numbers are the respective factor loadings. As we can see, for the first factor we have six flagged Q-sorts, for the second factor five flagged Q-sorts and for the third factor we have three flagged Q-sorts. We are good to go.</span>
+<span style="color: #0099cc;">Again, in our example, the stars indicate which sort is flagged for which factor and the numbers are the respective factor loadings. As we can see, for the first factor we have six flagged Q-sorts, for the second factor five flagged Q-sorts and for the third factor we have three flagged Q-sorts. We are good to go.</span>
 
 Each Q-sort can only load onto one factor. However, it might occur that one Q-sort may load relatively high on multiple factors. In that case, we cannot clearly attribute the person's Q-sort to one sinle factor, leading to a potential exclusion of that Q-sort. As stated by Zabala (2014), there are two relevant criteria for flagging a Q-sort:
 
